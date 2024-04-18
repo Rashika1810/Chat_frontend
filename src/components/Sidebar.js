@@ -8,8 +8,15 @@ import BedtimeOutlinedIcon from "@mui/icons-material/BedtimeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { IconButton } from "@mui/material";
 import ConversationsItems from "./ConversationsItems";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../features/ThemeSlice";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const lightTheme = useSelector((state) => state.themeKey);
+  const dispatch = useDispatch();
   const [conversation, setConversation] = useState([
     {
       name: "Test@1",
@@ -27,39 +34,76 @@ const Sidebar = () => {
       timeStamp: "today",
     },
   ]);
+
   return (
     <div className="sidebar-container">
       {/* sidebar header section */}
-      <div className="sidebar-header">
+      <div className={"sidebar-header" + (lightTheme ? "" : " dark")}>
         <div>
           <IconButton>
-            <AccountCircleOutlinedIcon />
+            <AccountCircleOutlinedIcon
+              className={"icon" + (lightTheme ? "" : " dark")}
+            />
           </IconButton>
         </div>
         <div>
-          <IconButton>
-            <PersonAddAltOutlinedIcon />
+          <IconButton
+            onClick={() => {
+              navigate("users");
+            }}
+          >
+            <PersonAddAltOutlinedIcon
+              className={"icon" + (lightTheme ? "" : " dark")}
+            />
           </IconButton>
-          <IconButton>
-            <GroupAddOutlinedIcon />
+          <IconButton
+            onClick={() => {
+              navigate("groups");
+            }}
+          >
+            <GroupAddOutlinedIcon
+              className={"icon" + (lightTheme ? "" : " dark")}
+            />
           </IconButton>
-          <IconButton>
-            <AddCircleOutlineIcon />
+          <IconButton
+            onClick={() => {
+              navigate("create-groups");
+            }}
+          >
+            <AddCircleOutlineIcon
+              className={"icon" + (lightTheme ? "" : " dark")}
+            />
           </IconButton>
-          <IconButton>
-            <BedtimeOutlinedIcon />
+          <IconButton
+            onClick={() => {
+              dispatch(toggleTheme());
+            }}
+          >
+            {lightTheme && (
+              <BedtimeOutlinedIcon
+                className={"icon" + (lightTheme ? "" : " dark")}
+              />
+            )}
+            {!lightTheme && (
+              <LightModeOutlinedIcon
+                className={"icon" + (lightTheme ? "" : " dark")}
+              />
+            )}
           </IconButton>
         </div>
       </div>
       {/* sidebar search section */}
-      <div className="sidebar-search">
-        <IconButton>
+      <div className={"sidebar-search" + (lightTheme ? "" : " dark")}>
+        <IconButton className={"icon" + (lightTheme ? "" : " dark")}>
           <SearchOutlinedIcon />
         </IconButton>
-        <input placeholder="Search..." className="searchbar" />
+        <input
+          placeholder="Search..."
+          className={"searchbar" + (lightTheme ? "" : " dark")}
+        />
       </div>
       {/* sidebar conversation section */}
-      <div className="sidebar-conversation">
+      <div className={"sidebar-conversation" + (lightTheme ? "" : " dark")}>
         {conversation.map((conversation) => {
           return (
             <ConversationsItems key={conversation.name} props={conversation} />

@@ -4,31 +4,22 @@ import Sidebar from "./Sidebar";
 import ChatArea from "./ChatArea";
 import WelcomePage from "./WelcomePage";
 import CreateGroups from "./CreateGroups";
+import Users from "./Users";
+import Groups from "./Groups";
+import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MainContainer = () => {
-  const [conversation, setConversation] = useState([
-    {
-      name: "Test@1",
-      lastMessage: "Last Message @1",
-      timeStamp: "today",
-    },
-    {
-      name: "Test@2",
-      lastMessage: "Last Message @2",
-      timeStamp: "today",
-    },
-    {
-      name: "Test@3",
-      lastMessage: "Last Message @3",
-      timeStamp: "today",
-    },
-  ]);
+  const lightTheme = useSelector((state) => state.themeKey);
   return (
-    <div className="main-Container">
+    <div className={"main-Container" + (lightTheme ? "" : " dark")}>
       <Sidebar />
+      <Outlet />
       {/* <CreateGroups /> */}
       {/* <WelcomePage /> */}
-      <ChatArea props={conversation[0]} />
+      {/* <ChatArea props={conversation[0]} /> */}
+      {/* <Users /> */}
+      {/* <Groups /> */}
     </div>
   );
 };
