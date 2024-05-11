@@ -46,7 +46,7 @@ const Sidebar = () => {
             />
           </IconButton>
         </div>
-        <div>
+        <div className="other-icons">
           <IconButton
             onClick={() => {
               navigate("users");
